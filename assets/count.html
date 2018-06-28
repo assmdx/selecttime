@@ -16,8 +16,9 @@
   <table class="ui celled table unstackable">
     <thead>
       <tr>
-        <th>学校</th>
+        <th>团队名称</th>
         <th>公司</th>
+        <th>负责人</th>
         <th>第几天</th>
         <th>组号</th>
         <th>序号</th>
@@ -39,6 +40,7 @@
         let oneCodeNode = document.createElement("tr");
         oneCodeNode.innerHTML = `  <td>${element.school}</td>
           <td>${element.company}</td>
+          <td>${element.ceo}</td>
           <td>${element.day}</td>
           <td>${element.group}</td>
           <td>${element.id}</td>`

@@ -28,7 +28,7 @@ app.post('/select', function (req, res) {
    let school = req.body.school
    let company = req.body.company
    let phoneNum = req.body.phoneNum
-
+   let ceo = req.body.ceo
    let findIsExist = util.searchCodeByCS({
      school:school,
      company:company
@@ -53,6 +53,7 @@ app.post('/select', function (req, res) {
        id:id,
        school:school,
        company:company,
+       ceo:ceo,
        phoneNum:phoneNum
      })
    }

@@ -30,5 +30,12 @@ exports.clearCode = function(){
 
 //排序好的抽号情况
 exports.getUserData = function(){
-  return data.user.sort((a,b) => a.code - b.code)
+  return data.user.sort((a,b) => {
+    if(a.day === b.day){
+      return a.code - b.code
+    }
+    else {
+      return a.day - b.day
+    }
+  })
 }

@@ -17,12 +17,16 @@
     <div class="three column centered row">
       <form class="ui form">
         <div class="field">
-          <label>公司名称</label>
-          <input type="text" id="company" name="company" placeholder="公司名称">
+          <label>团队名称</label>
+          <input type="text" id="company" name="company" placeholder="团队名称">
         </div>
         <div class="field">
           <label>学校名称</label>
           <input type="text" id="school" name="school" placeholder="学校名称">
+        </div>
+        <div class="field">
+          <label>负责人姓名</label>
+          <input type="text" id="ceo" name="school" placeholder="负责人姓名">
         </div>
         <div class="field">
           <label>手机号</label>
@@ -81,17 +85,18 @@
       let sendData = {
         company: document.getElementById('company').value,
         school: document.getElementById('school').value,
+        ceo: document.getElementById('ceo').value,
         phoneNum: document.getElementById('phoneNum').value
       };
       //将用户输入值序列化成字符串
       xhttp.send(JSON.stringify(sendData));
     } else {
-      alert('请输入公司和学校名称')
+      alert('请输入公司,学校名称和负责人')
     }
   }
 
   function checkContentIsNull() {
-    if (document.getElementById('company').value === "" || document.getElementById('school').value === "") {
+    if (document.getElementById('company').value === "" || document.getElementById('school').value === "" || document.getElementById('ceo').value === "") {
       return false
     }
     return true
