@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <title></title>
+  <link rel="stylesheet" href="css/semantic.min.css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/semantic.min.js"></script>
+
+
+</head>
+
+<body>
+  <div class="three column centered row"><br><br><br></div>
+
+  <a href="count.html"><button class="positive ui button">查看选号情况</button></a>
+
+  <div class="three column centered row"><br><br><br></div>
+
+  <button onclick="isReset()" class="ui green button" type="button">重置号箱</button>
+
+  <div class="ui basic modal">
+    <div class="content">
+      <p>重置将会删除所有已选号码</p><br>
+      <p>你确定要重置号箱吗？</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button">
+        否
+      </div>
+      <div onclick="reset()" class="ui green ok inverted button">
+        是
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  function isReset() {
+    $('.ui.basic.modal').modal('show')
+  }
+
+  function reset() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../reset', true);
+    xhttp.setRequestHeader('content-type', 'application/json')
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {        
+        $('.ui.basic.modal').modal('hide')
+        alert('重置成功')
+      }
+    }
+
+    //将用户输入值序列化成字符串
+    xhttp.send();
+  }
+</script>
+
+</html>
