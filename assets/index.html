@@ -14,6 +14,7 @@
 
 <body>
   <div class="ui segment two column centered grid">
+    <h3 class="ui center aligned header">北京高校大学生优秀创业团队评选答辩抽签</h3>
     <div class="three column centered row">
       <form class="ui form">
         <div class="field">
@@ -76,7 +77,7 @@
           let result = JSON.parse(xhttp.responseText)
           console.log(result)
           document.getElementById('codeText').innerText = '第 ' + result.day + ' 天 ' + result.group + '组 ' + result.id + ' 号 '
-          document.getElementById('codeTextCard').setAttribute("style","disply:block")
+          document.getElementById('codeTextCard').setAttribute("style", "disply:block")
 
           $('.segment').dimmer('hide');
 
