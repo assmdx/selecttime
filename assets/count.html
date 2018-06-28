@@ -18,6 +18,7 @@
       <tr>
         <th>学校</th>
         <th>公司</th>
+        <th>第几天</th>
         <th>组号</th>
         <th>序号</th>
       </tr>
@@ -38,6 +39,7 @@
         let oneCodeNode = document.createElement("tr");
         oneCodeNode.innerHTML = `  <td>${element.school}</td>
           <td>${element.company}</td>
+          <td>${element.day}</td>
           <td>${element.group}</td>
           <td>${element.id}</td>`
         document.getElementById('codeList').appendChild(oneCodeNode)

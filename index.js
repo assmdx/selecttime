@@ -37,13 +37,19 @@ app.post('/select', function (req, res) {
    let code
    let group
    let id
+   let day
    if(findIsExist.length === 0){
      code = util.selectCode()
      group = code % 65 === 0 ? code / 65 : Math.floor(code/ 65 + 1)
+     day = code % 65 > 32 ?  2 : 1
      id = code % 65 === 0 ? 65 : code - (Math.floor(code / 65 )) * 65
+     if(day === 2){
+       id = id - 32
+     }
      util.saveUserDataAndCode({
        code:code,
        group:group,
+       day:day,
        id:id,
        school:school,
        company:company,
@@ -54,11 +60,13 @@ app.post('/select', function (req, res) {
      code = findIsExist[0].code
      group = findIsExist[0].group
      id = findIsExist[0].id
+     day = findIsExist[0].day
    }
 
    res.end(JSON.stringify({
      code:code,
      group:group,
+     day:day,
      id:id
    }))
 })
