@@ -141,12 +141,12 @@
               document.getElementById('codeTextCard').setAttribute("style", "disply:block")
             } else {
               let address = result.group === 1 ? '6层611' : (result.group === 2 ? '5层502' : '5层507')
-              let day = result.id > 33 ? '7月6日' : '7月5日'
+              let day = result.day > 1 ? '7月6日 星期五 ' : '7月5日 星期四 '
               let idOfDayAndGroup = result.id > 33 ? result.id - 33 : result.id
               let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
               idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
-              document.getElementById('codeResult').innerText = result.group + '组 ' + idOfDayAndGroup + ' 号 '
-              document.getElementById('dateResult').innerText = day
+              document.getElementById('codeResult').innerText =  result.group + '组 ' + idOfDayAndGroup + ' 号 '
+              document.getElementById('dateResult').innerText = day + '' + timeInDay
               document.getElementById('addressResult').innerText = address
               document.getElementById('selectCodeDiv').innerHTML =""
               document.getElementById('resultH').setAttribute("style", "disply:block")

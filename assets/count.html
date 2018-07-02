@@ -43,7 +43,7 @@
         let oneCodeNode = document.createElement("tr");
 
         let address = element.group === 1 ? '6层611' :(element.group === 2 ? '5层502' : '5层507')
-        let day = element.id > 33 ? '7月6日' : '7月5日'
+        let day = element.day > 1 ? '7月6日' : '7月5日'
         let idOfDayAndGroup = element.id > 33 ? element.id -33 : element.id
         let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
         let detail =  day + ' ' + timeInDay + ' ' + element.group + '组 ' + idOfDayAndGroup + ' 号 ' + address
