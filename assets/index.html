@@ -15,7 +15,7 @@
 <body>
   <div class="ui segment two column centered grid">
     <h3 class="ui center aligned header"><br>北京高校大学生优秀创业团队评选<br>答辩抽签</h3>
-    <div class="three column centered row">
+    <div id= "selectCodeDiv" class="three column centered row">
       <form class="ui form">
         <div class="field">
           <label>团队名称</label>
@@ -47,22 +47,7 @@
         <div class="center">请稍等</div>
       </div>
     </div>
-
-    <!-- <div id="codeTextCard" class="ui card" style="display:none">
-      <div class="content">
-        <div class="header">您的序号为</div>
-      </div>
-      <div class="content">
-        <div class="ui small feed">
-          <p></p>
-        </div>
-        <div class="extra content">
-          <button id="codeText" class="ui button">welcome</button>
-        </div>
-      </div>
-    </div> -->
-
-    <h4 class="ui horizontal divider header">  <i class="tag icon"></i>  抽号结果</h4>
+    <h4 id="resultH" class="ui horizontal divider header" style="display:none">  <i class="tag icon"></i>  抽号结果</h4>
 
 
     <table id= "resultTable" class="ui definition table" style="display:none">
@@ -81,6 +66,22 @@
         </tr>
       </tbody>
     </table>
+  </div>
+    <!-- <div id="codeTextCard" class="ui card" style="display:none">
+      <div class="content">
+        <div class="header">您的序号为</div>
+      </div>
+      <div class="content">
+        <div class="ui small feed">
+          <p></p>
+        </div>
+        <div class="extra content">
+          <button id="codeText" class="ui button">welcome</button>
+        </div>
+      </div>
+    </div> -->
+
+
 </body>
 <script type="text/javascript">
   const baseurl = '../select/'
@@ -111,6 +112,8 @@
             document.getElementById('codeResult').innerText = result.group + '组 ' + idOfDayAndGroup + ' 号 '
             document.getElementById('dateResult').innerText = day
             document.getElementById('addressResult').innerText = address
+            document.getElementById('selectCodeDiv').innerHTML =""
+            document.getElementById('resultH').setAttribute("style", "disply:block")
             document.getElementById('resultTable').setAttribute("style", "disply:block")
           }
 
