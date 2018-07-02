@@ -57,10 +57,10 @@ app.post('/select', function(req, res) {
     }
 
     group = code % 65 === 0 ? code / 65 : Math.floor(code / 65 + 1)
-    day = code % 65===0 ? 2 : (code % 65 > 32 ? 2 : 1)
+    day = code % 65===0 ? 2 : (code % 65 > 33 ? 2 : 1)
     id = code % 65 === 0 ? 65 : code - (Math.floor(code / 65)) * 65
     if (day === 2) {
-      id = id - 32
+      id = id - 33
     }
     util.saveUserDataAndCode({
       code: code,
