@@ -118,10 +118,10 @@
   }
   function selectCode() {
     if (checkContentIsNull()) {
-      if (!checkPhoneNum()) {
-        alert('请输入正确的手机号码')
-        return;
-      }
+      // if (!checkPhoneNum()) {
+      //   alert('请输入正确的手机号码')
+      //   return;
+      // }
       checkCeoIsExist(function(ceoIsExist){
         console.log(ceoIsExist);
         if(ceoIsExist.res === false){
