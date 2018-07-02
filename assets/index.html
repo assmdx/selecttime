@@ -77,14 +77,14 @@
           let result = JSON.parse(xhttp.responseText)
           console.log(result)
           if(result.code === -1){
+            document.getElementById('codeText').innerText = '对不起,抽号已结束,请联系工作人员安排号码'
+            document.getElementById('codeTextCard').setAttribute("style","disply:block")
+          }else {
             let address = result.group === 1 ? '6层611' :(result.group === 2 ? '5层502' : '5层507')
             let day = result.id > 33 ? '7月6日' : '7月5日'
             let idOfDayAndGroup = result.id > 33 ? result.id -33 : result.id
             let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
             document.getElementById('codeText').innerText = day + ' ' + timeInDay + ' ' + result.group + '组 ' + idOfDayAndGroup + ' 号 ' + address
-            document.getElementById('codeTextCard').setAttribute("style","disply:block")
-          }else {
-            document.getElementById('codeText').innerText = '对不起,抽号已结束,请联系工作人员安排号码'
             document.getElementById('codeTextCard').setAttribute("style","disply:block")
           }
 

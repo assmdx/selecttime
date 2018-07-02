@@ -46,7 +46,8 @@ app.post('/select', function(req, res) {
   if (findIsExist.length === 0) {
     code = util.selectCode()
     //判断号箱为空的情况
-    if(code === -1){
+
+    if(code === -1){      
       res.end(JSON.stringify({
         code: -1,
         group: -1,

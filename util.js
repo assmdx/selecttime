@@ -6,6 +6,7 @@ var exports = module.exports;
 exports.selectCode = function(){
   //随机从数组中取一个数字，填入数组
   if(data.code.length === 0){
+    console.log(data.code);
     return -1
   }
   let randomCodeIndex =  parseInt(Math.random()*(data.code.length),10);
