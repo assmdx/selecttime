@@ -35,7 +35,7 @@ app.post('/select', function(req, res) {
   let phoneNum = req.body.phoneNum
   let ceo = req.body.ceo
   let findIsExist = util.searchCodeByCS({
-    school: school,
+    ceo: ceo,
     company: company
   })
 
@@ -85,6 +85,21 @@ app.post('/select', function(req, res) {
     day: day,
     id: id
   }))
+})
+
+//检查是否有这个负责人
+app.post('/checkCeoName', function(req, res) {
+  let findCeoIsExist = util.searchCeo(req.body.ceo)
+  if(findCeoIsExist.length === 0){
+    res.end(JSON.stringify({
+      res:false
+    }))
+  }
+  else{
+    res.end(JSON.stringify({
+      res:true
+    }))
+  }
 })
 
 //重置号码箱

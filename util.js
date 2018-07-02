@@ -14,10 +14,19 @@ exports.selectCode = function(){
   data.code.splice(randomCodeIndex,1)
   return code
 }
+
+//若是团队名称相同或者负责人名字相同返回相同的结果
 exports.searchCodeByCS = function(userX){
-  const result = data.user.filter(useri => useri.company === userX.company && useri.school === userX.school)
+  const result = data.user.filter(useri => useri.company === userX.company || useri.ceo === userX.ceo)
   return result
 }
+
+//在负责人列表中寻找匹配的负责人
+exports.searchCeo = function(ceoName){
+  const result = data.ceoList.filter(ceoi => ceoi.ceo === ceoName)
+  return result
+}
+
 exports.saveUserDataAndCode = function(userX){
   data.user.push(userX)
 }

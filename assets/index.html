@@ -48,18 +48,27 @@
       </div>
     </div>
     <h4 id="resultH" class="ui horizontal divider header" style="display:none">  <i class="tag icon"></i>  抽号结果</h4>
+    <h4 id="resultHint"  style="display:none"> 请牢记!!!(推荐截图保存)  </h4>
 
-
-    <table id= "resultTable" class="ui definition table" style="display:none">
+    <table id= "resultTable" class="ui inverted red table" style="display:none">
       <tbody>
         <tr>
-          <td class="two wide column">序号</td>
-          <td id = "codeResult">1" x 2"</td>
+          <td>序号</td>
+          <td id="codeResult">6 ounces</td>
         </tr>
+      </tbody>
+    </table>
+    <table id= "resultTable2" class="ui inverted violet table" style="display:none">
+      <tbody>
         <tr>
           <td>日期</td>
           <td id="dateResult">6 ounces</td>
         </tr>
+      </tbody>
+    </table>
+
+    <table id= "resultTable3" class="ui inverted pink table" style="display:none">
+      <tbody>
         <tr>
           <td>地点</td>
           <td id="addressResult">Yellowish</td>
@@ -67,6 +76,7 @@
       </tbody>
     </table>
   </div>
+
     <!-- <div id="codeTextCard" class="ui card" style="display:none">
       <div class="content">
         <div class="header">您的序号为</div>
@@ -85,50 +95,78 @@
 </body>
 <script type="text/javascript">
   const baseurl = '../select/'
-
+  const baseCHeckCeoUrl ='../checkCeoName/'
+  function checkCeoIsExist(callback){
+    let ceo = document.getElementById('ceo').value
+    let xhttp = new XMLHttpRequest();
+    xhttp.open('POST', baseCHeckCeoUrl, true);
+    xhttp.setRequestHeader('content-type', 'application/json')
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        let result = JSON.parse(xhttp.responseText)
+        console.log(result)
+        callback(result)
+      }
+    }
+    let sendData = {
+      ceo: document.getElementById('ceo').value
+    };
+    //将用户输入值序列化成字符串
+    xhttp.send(JSON.stringify(sendData));
+  }
   function selectCode() {
     if (checkContentIsNull()) {
       if (!checkPhoneNum()) {
         alert('请输入正确的手机号码')
         return;
       }
-      $('.segment').dimmer('show');
-      var xhttp = new XMLHttpRequest();
-      xhttp.open('POST', baseurl, true);
-      xhttp.setRequestHeader('content-type', 'application/json')
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-          let result = JSON.parse(xhttp.responseText)
-          console.log(result)
-          if (result.code === -1) {
-            document.getElementById('codeText').innerText = '对不起,抽号已结束,请联系工作人员安排号码'
-            document.getElementById('codeTextCard').setAttribute("style", "disply:block")
-          } else {
-            let address = result.group === 1 ? '6层611' : (result.group === 2 ? '5层502' : '5层507')
-            let day = result.id > 33 ? '7月6日' : '7月5日'
-            let idOfDayAndGroup = result.id > 33 ? result.id - 33 : result.id
-            let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
-            idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
-            document.getElementById('codeResult').innerText = result.group + '组 ' + idOfDayAndGroup + ' 号 '
-            document.getElementById('dateResult').innerText = day
-            document.getElementById('addressResult').innerText = address
-            document.getElementById('selectCodeDiv').innerHTML =""
-            document.getElementById('resultH').setAttribute("style", "disply:block")
-            document.getElementById('resultTable').setAttribute("style", "disply:block")
-          }
-
-          $('.segment').dimmer('hide');
-
+      checkCeoIsExist(function(ceoIsExist){
+        console.log(ceoIsExist);
+        if(ceoIsExist.res === false){
+          alert('请输入正确的负责人名字')
+          return;
         }
-      }
-      let sendData = {
-        company: document.getElementById('company').value,
-        school: document.getElementById('school').value,
-        ceo: document.getElementById('ceo').value,
-        phoneNum: document.getElementById('phoneNum').value
-      };
-      //将用户输入值序列化成字符串
-      xhttp.send(JSON.stringify(sendData));
+        $('.segment').dimmer('show');
+        let xhttp = new XMLHttpRequest();
+        xhttp.open('POST', baseurl, true);
+        xhttp.setRequestHeader('content-type', 'application/json')
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState === 4 && xhttp.status === 200) {
+            let result = JSON.parse(xhttp.responseText)
+            console.log(result)
+            if (result.code === -1) {
+              document.getElementById('codeText').innerText = '对不起,抽号已结束,请联系工作人员安排号码'
+              document.getElementById('codeTextCard').setAttribute("style", "disply:block")
+            } else {
+              let address = result.group === 1 ? '6层611' : (result.group === 2 ? '5层502' : '5层507')
+              let day = result.id > 33 ? '7月6日' : '7月5日'
+              let idOfDayAndGroup = result.id > 33 ? result.id - 33 : result.id
+              let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
+              idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
+              document.getElementById('codeResult').innerText = result.group + '组 ' + idOfDayAndGroup + ' 号 '
+              document.getElementById('dateResult').innerText = day
+              document.getElementById('addressResult').innerText = address
+              document.getElementById('selectCodeDiv').innerHTML =""
+              document.getElementById('resultH').setAttribute("style", "disply:block")
+              document.getElementById('resultTable').setAttribute("style", "disply:block")
+              document.getElementById('resultTable2').setAttribute("style", "disply:block")
+              document.getElementById('resultTable3').setAttribute("style", "disply:block")
+              document.getElementById('resultHint').setAttribute("style", "disply:block")
+            }
+
+            $('.segment').dimmer('hide');
+
+          }
+        }
+        let sendData = {
+          company: document.getElementById('company').value,
+          school: document.getElementById('school').value,
+          ceo: document.getElementById('ceo').value,
+          phoneNum: document.getElementById('phoneNum').value
+        };
+        //将用户输入值序列化成字符串
+        xhttp.send(JSON.stringify(sendData));
+      })
     } else {
       alert('请输入公司,学校名称和负责人')
     }
