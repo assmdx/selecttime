@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 
 //抽号
 app.post('/select', function(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   let school = req.body.school
   let company = req.body.company
   let phoneNum = req.body.phoneNum
@@ -47,7 +47,7 @@ app.post('/select', function(req, res) {
     code = util.selectCode()
     //判断号箱为空的情况
 
-    if(code === -1){      
+    if(code === -1){
       res.end(JSON.stringify({
         code: -1,
         group: -1,
