@@ -76,8 +76,13 @@
         if (xhttp.readyState === 4 && xhttp.status === 200) {
           let result = JSON.parse(xhttp.responseText)
           console.log(result)
-          document.getElementById('codeText').innerText = '第 ' + result.day + ' 天 ' + result.group + '组 ' + result.id + ' 号 '
-          document.getElementById('codeTextCard').setAttribute("style", "disply:block")
+
+          let address = result.group === 1 ? '6层611' :(result.group === 2 ? '5层502' : '5层507')
+          let day = result.id > 33 ? '7月6日' : '7月5日'
+          let idOfDayAndGroup = result.id > 33 ? result.id -33 : result.id
+          let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
+          document.getElementById('codeText').innerText = day + ' ' + timeInDay + ' ' + result.group + '组 ' + idOfDayAndGroup + ' 号 ' + address
+          document.getElementById('codeTextCard').setAttribute("style","disply:block")
 
           $('.segment').dimmer('hide');
 

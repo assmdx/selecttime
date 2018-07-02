@@ -8,25 +8,28 @@
   <link rel="stylesheet" href="css/semantic.min.css">
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/semantic.min.js"></script>
-
+  <script src="js/excel.js"></script>
 
 </head>
 
 <body>
-  <table class="ui celled table unstackable">
-    <thead>
-      <tr>
-        <th>团队名称</th>
-        <th>公司</th>
-        <th>负责人</th>
-        <th>第几天</th>
-        <th>组号</th>
-        <th>序号</th>
-      </tr>
-    </thead>
-    <tbody id = "codeList">
-    </tbody>
-  </table>
+  <div class="ui segment two column centered grid">
+    <button onclick="getImport('teamtable')" class="fluid ui green button">导出为excel</button>
+    <table id="teamtable" class="ui celled table unstackable">
+      <thead>
+        <tr>
+          <th>团队名称</th>
+          <th>公司</th>
+          <th>负责人</th>
+          <th>第几天</th>
+          <th>组号</th>
+          <th>序号</th>
+          <th>具体时间地点组号序号</th>
+        </tr>
+      </thead>
+      <tbody id="codeList">
+      </tbody>
+    </table>
 </body>
 <script type="text/javascript">
   var xhttp = new XMLHttpRequest();
@@ -36,14 +39,22 @@
     if (xhttp.readyState === 4 && xhttp.status === 200) {
       let result = JSON.parse(xhttp.responseText)
       console.log(result)
-      result.forEach((element)=>{
+      result.forEach((element) => {
         let oneCodeNode = document.createElement("tr");
+
+        let address = element.group === 1 ? '6层611' :(element.group === 2 ? '5层502' : '5层507')
+        let day = element.id > 33 ? '7月6日' : '7月5日'
+        let idOfDayAndGroup = element.id > 33 ? element.id -33 : element.id
+        let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
+        let detail =  day + ' ' + timeInDay + ' ' + element.group + '组 ' + idOfDayAndGroup + ' 号 ' + address
+
         oneCodeNode.innerHTML = `  <td>${element.school}</td>
           <td>${element.company}</td>
           <td>${element.ceo}</td>
           <td>${element.day}</td>
           <td>${element.group}</td>
-          <td>${element.id}</td>`
+          <td>${idOfDayAndGroup}</td>
+          <td>${detail}</td>`
         document.getElementById('codeList').appendChild(oneCodeNode)
       })
     }
