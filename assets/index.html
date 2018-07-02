@@ -96,9 +96,7 @@
 <script type="text/javascript">
   const baseurl = '../select/'
   const baseCHeckCeoUrl ='../checkCeoName/'
-  function checkCeoIsExist(callback){
-    callback({res:true})
-    return;
+  function checkCeoIsExist(callback){    
     let ceo = document.getElementById('ceo').value
     let xhttp = new XMLHttpRequest();
     xhttp.open('POST', baseCHeckCeoUrl, true);
@@ -118,10 +116,10 @@
   }
   function selectCode() {
     if (checkContentIsNull()) {
-      // if (!checkPhoneNum()) {
-      //   alert('请输入正确的手机号码')
-      //   return;
-      // }
+      if (!checkPhoneNum()) {
+        alert('请输入正确的手机号码')
+        return;
+      }
       checkCeoIsExist(function(ceoIsExist){
         console.log(ceoIsExist);
         if(ceoIsExist.res === false){
@@ -144,7 +142,6 @@
               let day = result.day > 1 ? '7月6日 星期五 ' : '7月5日 星期四 '
               let idOfDayAndGroup = result.id > 33 ? result.id - 33 : result.id
               let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
-              // idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
               document.getElementById('codeResult').innerText =  result.group + '组 ' + idOfDayAndGroup + ' 号 '
               document.getElementById('dateResult').innerText = day + '' + timeInDay
               document.getElementById('addressResult').innerText = address
