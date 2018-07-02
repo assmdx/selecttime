@@ -144,7 +144,7 @@
               let day = result.day > 1 ? '7月6日 星期五 ' : '7月5日 星期四 '
               let idOfDayAndGroup = result.id > 33 ? result.id - 33 : result.id
               let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
-              idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
+              // idOfDayAndGroup = idOfDayAndGroup > 15 ? idOfDayAndGroup - 15 : idOfDayAndGroup
               document.getElementById('codeResult').innerText =  result.group + '组 ' + idOfDayAndGroup + ' 号 '
               document.getElementById('dateResult').innerText = day + '' + timeInDay
               document.getElementById('addressResult').innerText = address
