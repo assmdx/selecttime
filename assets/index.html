@@ -98,6 +98,7 @@
   const baseCHeckCeoUrl ='../checkCeoName/'
   function checkCeoIsExist(callback){
     callback({res:true})
+    return;
     let ceo = document.getElementById('ceo').value
     let xhttp = new XMLHttpRequest();
     xhttp.open('POST', baseCHeckCeoUrl, true);
