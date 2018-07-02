@@ -45,6 +45,16 @@ app.post('/select', function(req, res) {
   let day
   if (findIsExist.length === 0) {
     code = util.selectCode()
+    //判断号箱为空的情况
+    if(code === -1){
+      res.end(JSON.stringify({
+        code: -1,
+        group: -1,
+        day: -1,
+        id: -1
+      }))
+    }
+
     group = code % 65 === 0 ? code / 65 : Math.floor(code / 65 + 1)
     day = code % 65 > 32 ? 2 : 1
     id = code % 65 === 0 ? 65 : code - (Math.floor(code / 65)) * 65
