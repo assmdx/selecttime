@@ -52,12 +52,12 @@ app.post('/select', function(req, res) {
     //判断号箱为空的情况
 
     if(code === -1){
-      res.end(JSON.stringify({
+      res.json({
         code: -1,
         group: -1,
         day: -1,
         id: -1
-      }))
+      })
     }
 
     group = code % 65 === 0 ? code / 65 : Math.floor(code / 65 + 1)
@@ -83,12 +83,12 @@ app.post('/select', function(req, res) {
     day = findIsExist[0].day
   }
 
-  res.end(JSON.stringify({
+  res.json({
     code: code,
     group: group,
     day: day,
     id: id
-  }))
+  })
 })
 
 //检查是否有这个负责人
