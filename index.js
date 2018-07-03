@@ -22,10 +22,10 @@ app.all('*', function(req, res, next) {
 });
 
 
-//默认页面
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + "/assets/" + "index.html");
-})
+// //默认页面
+// app.get('/', function(req, res) {
+//   res.sendFile(__dirname + "/assets/dist/" + "index.html");
+// })
 
 //抽号
 app.post('/select', function(req, res) {
@@ -108,10 +108,10 @@ app.post('/reset', function(req, res) {
   res.end('ok')
 })
 
-//查看抽号情况
-app.get('/count', function(req, res) {
-  res.sendFile(__dirname + "/assets/" + "count.html");
-})
+// //查看抽号情况
+// app.get('/count', function(req, res) {
+//   res.sendFile(__dirname + "/assets/src/" + "count.html");
+// })
 
 app.get('/countData', function(req, res) {
   res.end(JSON.stringify(util.getUserData()))
