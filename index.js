@@ -2,8 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const util = require('./util')
 var app = express()
-const fs  = require('fs');
-const xlsx = require('node-xlsx')
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -25,8 +23,6 @@ app.all('*', function(req, res, next) {
 
 //默认页面
 app.get('/', function(req, res) {
-  console.log('sadhasjkhdkashd');
-  console.log(__dirname + "\\assets\\dist\\" + "index.html");
   res.type('.html');
   res.sendFile(__dirname + "/assets/dist/" + "index.html");
 
@@ -118,21 +114,7 @@ app.get('/count', function(req, res) {
   res.sendFile(__dirname + "/assets/src/" + "count.html");
 })
 app.get('/countData', function(req, res) {
-  res.end(JSON.stringify(util.getUserData()))
-})
-
-app.get('/download', function(req, res) {
-  let data = JSON.stringify(util.getUserData())
-  let buffer = xlsx.build([{
-    name: 'test',
-    data: data
-  }]);
-  let xlsxContentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'; // For Excel2007 and above .xlsx files
-
-  res.setHeader('Content-Type', xlsxContentType);
-  res.setHeader('Content-Disposition', `attachment; filename=${xlsxFileName}.xlsx`);
-  res.writeHead(200);
-  res.end(buffer);
+  res.json(util.getUserData())
 })
 
 
