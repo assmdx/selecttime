@@ -22,10 +22,17 @@ app.all('*', function(req, res, next) {
 });
 
 
+<<<<<<< HEAD
 //默认页面
 app.get('/', function(req, res) {
   res.sendFile(__dirname + "/assets/dist/" + "index.html");
 })
+=======
+// //默认页面
+// app.get('/', function(req, res) {
+//   res.sendFile(__dirname + "/assets/dist/" + "index.html");
+// })
+>>>>>>> 679ad5f5aa35a76fbf5da83c23aea255fb478351
 
 //抽号
 app.post('/select', function(req, res) {
@@ -108,10 +115,17 @@ app.post('/reset', function(req, res) {
   res.end('ok')
 })
 
+<<<<<<< HEAD
 //查看抽号情况
 app.get('/count', function(req, res) {
   res.sendFile(__dirname + "/assets/src/" + "count.html");
 })
+=======
+// //查看抽号情况
+// app.get('/count', function(req, res) {
+//   res.sendFile(__dirname + "/assets/src/" + "count.html");
+// })
+>>>>>>> 679ad5f5aa35a76fbf5da83c23aea255fb478351
 
 app.get('/countData', function(req, res) {
   res.end(JSON.stringify(util.getUserData()))
