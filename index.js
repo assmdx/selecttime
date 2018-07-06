@@ -84,7 +84,9 @@ app.post('/select', function(req, res) {
       company: company,
       ceo: ceo,
       phoneNum: phoneNum
-    })
+    }).catch(e){
+      console.error('save user data failed',e)
+    }
   } else {
     code = findIsExist[0].code
     group = findIsExist[0].group
@@ -104,20 +106,22 @@ app.post('/select', function(req, res) {
 app.post('/checkCeoName', function(req, res) {
   let findCeoIsExist = util.searchCeo(req.body.ceo)
   if(findCeoIsExist.length === 0){
-    res.end(JSON.stringify({
+    res.json({
       res:false
-    }))
+    })
   }
   else{
-    res.end(JSON.stringify({
+    res.json({
       res:true
-    }))
+    })
   }
 })
 
 //重置号码箱
 app.post('/reset', function(req, res) {
-  util.clearCode()
+  util.clearCode().catch(e=>{
+    console.error('reset failed',e)
+  })
   res.end('ok')
 })
 
@@ -127,7 +131,11 @@ app.get('/count', function(req, res) {
   res.sendFile(__dirname + "/assets/src/" + "count.html");
 })
 app.get('/countData', function(req, res) {
-  res.json(util.getUserData())
+  util.getUserData().then(data => {
+    res.json(data)
+  }).catch(e=>{
+    console.error('get count data failed',e);
+  })
 })
 
 
