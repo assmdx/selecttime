@@ -4,9 +4,9 @@ const db = require('./redisUtil')
 var exports = module.exports;
 
 
-exports.selectCode = function(){
+exports.selectCode = async function(){
   //随机从数组中取一个数字，填入数组
-  let codeBoxStr = await db.get('codeBox')
+  let codeBoxStr = await db.get('codeBox').then(data=>data).catch(e=>e)
   let codeBox = JSON.parse(codeBoxStr)
   if(codeBox.length === 0){
     return -1
@@ -14,19 +14,13 @@ exports.selectCode = function(){
   let randomCodeIndex =  parseInt(Math.random()*(codeBox.length),10);
   let code = codeBox[randomCodeIndex]
   codeBox.splice(randomCodeIndex,1)
-  return new Promise((resolve,reject)=>{
-    db.set('codeBox',JSON.stringify(codeBox)).then((data)=>{
-      resolve(code)
-    })
-  }).catch(e=>{
-    console.log('set codeBox error',e);
-    reject(e)
-  })
+  await db.set('codeBox',JSON.stringify(codeBox))
+  return code
 }
 
 //若是团队名称相同或者负责人名字相同返回相同的结果
-exports.searchCodeByCS = function(userX){
-  let resStr = await db.get(userX.ceo)
+exports.searchCodeByCS = async function(userX){
+  let resStr = await db.get(userX.ceo).then(data =>data).catch(e=>e)
   return JSON.parse(resStr)
 }
 
@@ -43,7 +37,7 @@ exports.saveUserDataAndCode = function(userX){
 exports.clearCode = function(){
   db.set('codeBox',JSON.stringify(data.codeBox))
   for(let i = 0;i < data.maxCode ;i++ ){
-    db.del(i).then().catch(e =>{
+    db.delete(data.ceoList[i].ceo).then().catch(e =>{
       console.error('delete user data error',e);
     })
   }
@@ -54,8 +48,10 @@ exports.getUserData = function(){
   let user = []
   return new Promise((resolve,reject)=>{
     for(let i = 0;i<data.maxCode;i++){
-      db.get(data.ceoList[i]).then(userX => {
-        user.push(JSON.parse(userX))
+      db.get(data.ceoList[i].ceo).then(userX => {
+        if(null != userX){
+          user.push(JSON.parse(userX))
+        }
         if(i === data.maxCode - 1){
           resolve(user)
         }

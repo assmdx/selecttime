@@ -3,6 +3,8 @@ var process = require('process')
 const bodyParser = require('body-parser')
 const util = require('./util')
 var app = express()
+app.use(express.compress())
+
 const port = (function () {
   if (typeof (process.argv[2]) !== 'undefined') { // 如果输入了端口号，则提取出来
     if (isNaN(process.argv[2])) { // 如果端口号不为数字，提示格式错误
@@ -24,14 +26,14 @@ app.use(bodyParser.json())
 app.use(express.static('assets/dist'));
 app.use(express.static('assets/src'));
 
-app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By", ' 3.2.1')
-  res.header("Content-Type", "application/json;charset=utf-8");
-  next();
-});
+// app.all('*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+//   res.header("X-Powered-By", ' 3.2.1')
+//   res.header("Content-Type", "application/json;charset=utf-8");
+//   next();
+// });
 
 
 //默认页面
@@ -41,62 +43,53 @@ app.get('/', function(req, res) {
 
 })
 //抽号
-app.post('/select', function(req, res) {
-  // console.log(req.body)
+app.post('/select', async function(req, res) {
+  console.log(req.body)
   let school = req.body.school
   let company = req.body.company
   let phoneNum = req.body.phoneNum
   let ceo = req.body.ceo
-  let findIsExist = util.searchCodeByCS({
+  let findIsExist = await util.searchCodeByCS({
     ceo: ceo,
     company: company
   })
 
   let code
-  let group
   let id
   let day
-  if (findIsExist.length === 0) {
-    code = util.selectCode()
+  if (null === findIsExist) {
+    code = await util.selectCode()
     //判断号箱为空的情况
 
     if(code === -1){
       res.json({
         code: -1,
-        group: -1,
         day: -1,
         id: -1
       })
     }
 
-    group = code % 65 === 0 ? code / 65 : Math.floor(code / 65 + 1)
-    day = code % 65===0 ? 2 : (code % 65 > 33 ? 2 : 1)
-    id = code % 65 === 0 ? 65 : code - (Math.floor(code / 65)) * 65
-    if (day === 2) {
-      id = id - 33
-    }
+    day = code > 41 ? 2 : 1
+    id = code > 41 ? code - 41 : code
     util.saveUserDataAndCode({
       code: code,
-      group: group,
       day: day,
       id: id,
       school: school,
       company: company,
       ceo: ceo,
       phoneNum: phoneNum
-    }).catch(e){
+    }).catch(e=>{
       console.error('save user data failed',e)
-    }
+    })
   } else {
-    code = findIsExist[0].code
-    group = findIsExist[0].group
-    id = findIsExist[0].id
-    day = findIsExist[0].day
+    code = findIsExist.code
+    id = findIsExist.id
+    day = findIsExist.day
   }
 
   res.json({
     code: code,
-    group: group,
     day: day,
     id: id
   })
@@ -119,9 +112,7 @@ app.post('/checkCeoName', function(req, res) {
 
 //重置号码箱
 app.post('/reset', function(req, res) {
-  util.clearCode().catch(e=>{
-    console.error('reset failed',e)
-  })
+  util.clearCode()
   res.end('ok')
 })
 

@@ -22,7 +22,6 @@
           <th>学校</th>
           <th>负责人</th>
           <th>联系方式</th>
-          <th>组号</th>
           <th>序号</th>
           <th>具体时间地点组号序号</th>
         </tr>
@@ -42,17 +41,16 @@
       result.forEach((element) => {
         let oneCodeNode = document.createElement("tr");
 
-        let address = element.group === 1 ? '6层611' :(element.group === 2 ? '5层502' : '5层507')
-        let day = element.day > 1 ? '7月6日' : '7月5日'
-        let idOfDayAndGroup = element.id > 33 ? element.id -33 : element.id
+        let address = '611路演厅'
+        let day = element.day > 1 ? '7月13日' : '7月12日'
+        let idOfDayAndGroup =  element.id
         let timeInDay = idOfDayAndGroup > 15 ? '下午' : '上午'
-        let detail =  day + ' ' + timeInDay + ' ' + element.group + '组 ' + idOfDayAndGroup + ' 号 ' + address
+        let detail =  day + ' ' + timeInDay + ' ' + idOfDayAndGroup + ' 号 ' + address
 
         oneCodeNode.innerHTML = `  <td>${element.school}</td>
           <td>${element.company}</td>
           <td>${element.ceo}</td>
           <td>${element.phoneNum}</td>
-          <td>${element.group}</td>
           <td>${idOfDayAndGroup}</td>
           <td>${detail}</td>`
         document.getElementById('codeList').appendChild(oneCodeNode)
