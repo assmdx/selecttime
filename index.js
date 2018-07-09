@@ -2,8 +2,9 @@ const express = require('express')
 var process = require('process')
 const bodyParser = require('body-parser')
 const util = require('./util')
+const compression = require('compression')
 var app = express()
-app.use(express.compress())
+app.use(compression())
 
 const port = (function () {
   if (typeof (process.argv[2]) !== 'undefined') { // 如果输入了端口号，则提取出来
