@@ -2,7 +2,7 @@
 
   一个简单的抽签系统
 
-###界面
+### 界面
   ![page1.png](test/page1.png)
   ![page2.png](test/page2.png)
 
