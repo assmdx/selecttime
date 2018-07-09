@@ -26,5 +26,7 @@
 
   http://yourServerIp/
 
+  http://yourServerIp/manage.html
+
 ### 压力测试结果
   ![result.png](test/result.png)
