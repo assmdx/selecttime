@@ -53,7 +53,9 @@ exports.getUserData = function(){
           user.push(JSON.parse(userX))
         }
         if(i === data.maxCode - 1){
-          resolve(user)
+          resolve(user.sort((a,b)=>{
+            return a.code - b.code
+          }))
         }
       }).catch(e =>{
         console.error('get user data error',e);
