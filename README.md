@@ -8,7 +8,7 @@
 
 ### 安卓app下载
   
-![page2.png](test/page3.png)
+![page2.png](test/qweq.png)
 
 ### 如何使用
 
