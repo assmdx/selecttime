@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <style>
+        .Grid {
+            display: flex;
+            flex-direction:column;
+        }
+
+        .Grid-cell {
+            flex: 1;
+        }
+
+        .u-full {
+            flex: 0 0 100%;
+            display:flex;
+            justify-content:center;
+            padding-bottom:1rem;
+        }
+        .u-full h2 {
+            text-align: center;
+            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+        }
+        .u-full input {
+            width: -webkit-fill-available;
+            border: 1px solid rgba(34,36,38,.15);
+            color: rgba(0,0,0,.87);
+            border-radius: .28571429rem;
+            box-shadow: 0 0 0 0 transparent inset;
+            text-align: -webkit-left;
+            font-size: 1rem;
+            min-height: 2em;
+            padding: .67857143em 1em;
+        }
+        .u-full button {
+            font-size: 1rem;
+            min-height: 1em;
+            background-color: #21ba45;
+            border: 0px;
+            border-radius: 5px;
+            color: #fff;
+            padding: .67857143em 1em;
+            transition: color .1s ease,border-color .1s ease;
+        }
+        .u-title {
+            padding:0;
+        }
+        .u-title label {
+            margin-top:1rem;
+            margin-bottom: 0;
+            font-size: .92857143em;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="Grid">
+        <div class="Grid-cell u-full">
+            <h2>北京高校大学生优秀创业团队评选答辩抽签</h2>
+        </div>
+        <div class="Grid-cell u-full u-title">
+            <label>团队名称</label>
+        </div>
+        <div class="Grid-cell u-full ">
+            <input type="text" placeholder="请输入团队名称">
+        </div>
+        <div class="Grid-cell u-full u-title">
+            <label>学校名称</label>
+        </div>
+        <div class="Grid-cell u-full">
+            <input type="text" placeholder="请输入学校名称">
+        </div>
+        <div class="Grid-cell u-full u-title">
+            <label>负责人姓名</label>
+        </div>
+        <div class="Grid-cell u-full">
+            <input type="text" placeholder="请输入负责人姓名">
+        </div>
+        <div class="Grid-cell u-full u-title">
+            <label>手机号</label>
+        </div>
+        <div class="Grid-cell u-full">
+            <input type="text" placeholder="请输入手机号">
+        </div>
+        <div class="Grid-cell u-full">
+            <button>抽号</button>
+        </div>
+    </div>
+</body>
+</html>
