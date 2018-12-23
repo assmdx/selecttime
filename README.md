@@ -28,7 +28,7 @@
 
   http://yourServerIp/manage.html
 
-### 压力测试结果  ![result.png](test/result.png)
+### 压力测试结果  ![result.png](v1/test/result.png)
 **BW = PS * PC * 8 bit /byte * r/t**
 
 BW为带宽大小，
