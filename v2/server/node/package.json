@@ -1,0 +1,19 @@
+{
+  "name": "selecttime",
+  "version": "1.0.2",
+  "description": "selecttime nodejs express server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "cluster"
+  ],
+  "author": "assmdx",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
