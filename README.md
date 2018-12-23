@@ -3,8 +3,8 @@
   一个简单的抽签系统
 
 ### 界面
-  ![page1.png](test/page1.png)
-  ![page2.png](test/page2.png)
+  ![page1.png](v1/test/page1.png)
+  ![page2.png](v1/test/page2.png)
 
 ### 如何使用
 
@@ -12,7 +12,7 @@
 
 安装依赖
 
-  npm install
+  cd v1 & npm install
 
   sudo apt-get install forever
 
@@ -20,7 +20,7 @@
 
   ./run.sh
 
-确保你的nginx的配置和 nginx/nginx.conf 配置相同
+确保你的nginx的配置和 v1/nginx/nginx.conf 配置相同
 
 测试：
 
@@ -91,9 +91,15 @@ x = 8
 
 如果人数固定的话，直接先把数据计算好缓存下来应该还会节省很多时间，也就是从第一个人到最后一个人直接对应到相应的1到n时间，存到一个map中，每个人发请求直接取数据返回即可。
 
+采用直接打表方法返回数据班版本：`v2/server`目录下
+
 #### 前端页面优化
 
 之前最开始并没有进行优化，直接把sematic整个包拿过来使用，300KB+
 
 - 只使用用到的sematic模块，如上图所示，一个抽号码的网页要70KB
 - 去掉sematic和jquery
+- 优化后的页面总大小：4.23KB  
+  - v2/ui/index-compress.html
+  - v2/ui/index.css
+  - v2/ui/index.js
