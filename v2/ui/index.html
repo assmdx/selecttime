@@ -52,10 +52,32 @@
             font-size: .92857143em;
             font-weight: 700;
         }
+        /*#res-container {*/
+            /*display: none;*/
+        /*}*/
+        .red {
+            background-color: red;
+        }
+        .blueviolet {
+            background-color: blueviolet;
+        }
+        .deeppink {
+            background-color: deeppink;
+        }
+        .red , .blueviolet, .deeppink {
+            border-radius: 0.69em;
+            box-shadow: 6px 6px 6px #888888;
+            color:white;
+            font-size: 1em;
+            margin:1em 0em;
+        }
+        .select-res-title {
+            border-bottom: 1px solid;
+        }
     </style>
 </head>
 <body>
-    <div class="Grid">
+    <div class="Grid" id="container">
         <div class="Grid-cell u-full">
             <h2>北京高校大学生优秀创业团队评选答辩抽签</h2>
         </div>
@@ -87,8 +109,34 @@
             <button onclick="selectCode()">抽号</button>
         </div>
     </div>
+    <div class="Grid" id="res-container">
+        <div class="Grid-cell u-full">
+            <h2>北京高校大学生优秀创业团队评选答辩抽签</h2>
+        </div>
+        <div class="Grid-cell u-full select-res-title">
+            <h2>抽号结果</h2>
+        </div>
+        <div class="Grid-cell u-full">
+            <h4>请牢记!!!(推荐截图保存)</h4>
+        </div>
+        <div class="Grid-cell u-full red">
+            <p>序号:</p>
+            <p id="codeResult">2 组 1 号</p>
+        </div>
+        <div class="Grid-cell u-full blueviolet">
+            <p>日期:</p>
+            <p id="dateResult">7月6日 星期五 下午</p>
+        </div>
+        <div class="Grid-cell u-full deeppink">
+            <p>地点:</p>
+            <p id="addressResult">6层611</p>
+        </div>
+    </div>
 </body>
 <script type="text/javascript">
+    window.onload = () => {
+        document.getElementById('res-container').style.display = "none"
+    }
     const rooturl = '../'
     const selectCodeUrl = 'select'
     function selectCode() {
@@ -107,15 +155,33 @@
                 "Content-Type": "application/json; charset=utf-8",
             },
             body:JSON.stringify({
-                company:getDomValue('company'),
-                school:getDomValue('school'),
-                ceo:getDomValue('school'),
-                phoneNum:getDomValue('phoneNum')
+                ceo:getDomValue('ceo')
             })
         })
         .then(function(response) {
-            alert(response.json())
-            return response.json()
+            response.json()
+                .then(data => {
+                    console.log(data)
+                    let code = data.code
+                    if(code === 0) {
+                        alert('请输入正确的信息')
+                    } else {
+                        let group = 1
+                        let address = '6层611'
+                        let day = '7月6日 星期五 '
+                        let idOfDayAndGroup = 22
+                        let timeInDay = '下午'
+                        document.getElementById('codeResult').innerText =  group + '组 ' + idOfDayAndGroup + ' 号 '
+                        document.getElementById('dateResult').innerText = day + '' + timeInDay
+                        document.getElementById('addressResult').innerText = address
+
+                        document.getElementById('container').style.display = "none"
+                        document.getElementById('res-container').style.display = ""
+                    }
+                })
+                .catch(error => {
+                    alert('网络连接缓慢,请稍后再试')
+                })
         })
         .catch(function(myJson) {
             alert('网络连接缓慢，请稍后再试')
@@ -123,21 +189,16 @@
     }
 
     function checkContentIsNull() {
-        if (getDom('company') === "" || getDom('school') === "" || getDom('ceo') === "") {
+        if (getDomValue('company') === "" || getDomValue('school') === "" || getDomValue('ceo') === "") {
             return true
         }
         return false
     }
     function checkPhoneNum() {
-        return /^1[0-9]{10}$/.test(getDom('phoneNum')) //true
+        return /^1[0-9]{10}$/.test(getDomValue('phoneNum')) //true
     }
-
-
     function getDomValue(id) {
         return document.getElementById(id).value
-    }
-    function setDomValue(dom,value) {
-
     }
 </script>
 </html>

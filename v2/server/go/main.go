@@ -41,18 +41,19 @@ func produceCode() {
 	}
 }
 func GetCode(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
+	var req Ceo
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &req)
+	//fmt.Println(req.Ceo)
+
 	var res Result
-	fmt.Println(params)
-	fmt.Println(params["ceo"])
-	fmt.Println(codeMap[params["ceo"]])
-	if codeMap[params["ceo"]] == 0 {
+	if codeMap[req.Ceo] == 0 {
 		json.NewEncoder(w).Encode(&Result{})
 		return
 	}
-	res.Code =codeMap[params["ceo"]]
-	fmt.Println(res)
-	fmt.Println(res.Code)
+	res.Code =codeMap[req.Ceo]
+	//fmt.Println(res)
+	//fmt.Println(res.Code)
 	json.NewEncoder(w).Encode(res)
 }
 
@@ -61,8 +62,9 @@ func main() {
 	router := mux.NewRouter()
 	produceCode()
 	//fmt.Println(data.CeoList[1].Ceo)
-	router.HandleFunc("/select/{ceo}", GetCode).Methods("POST")
+	adminRouter := router.PathPrefix("/select").Subrouter()
+	adminRouter.HandleFunc("", GetCode)
+	adminRouter.HandleFunc("/", GetCode)
 	fmt.Println("started at port 22021")
 	log.Fatal(http.ListenAndServe(":22021", router))
-
 }
