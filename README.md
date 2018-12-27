@@ -1,8 +1,10 @@
 ﻿# selecttime
 
-selecttime一个简单的抽签系统。
+selecttime一个简单的抽签系统。页面很简单，只有一个页面，如下图所示。
 
 在实现这个系统的过程中,我发现了大家（大概200人）并不能同时打开抽签网页完成抽签，这让我注意到并发访问的问题，之后用了一些方法解决了这些问题。
+
+![](v1/test/page1.png)![](v1/test/page2.png)
 
 ## 如何运行代码
 
@@ -41,6 +43,8 @@ server {
 测试：
 
   http://yourServerIp/:8888
+
+ 压力测试：用Jmeter打开`v2/test/selecttime.jmx ` 或者使用阿里云压力测试
 
 ## v1版本
 
